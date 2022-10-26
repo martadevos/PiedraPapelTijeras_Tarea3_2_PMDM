@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PiedraPapelTijeras_Tarea3_2_PMDM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rock">Rock</string>
+    <string name="scissors">Scissors</string>
+    <string name="paper">Paper</string>
+    <string name="lizard">Lizard</string>
+    <string name="spock">Spock</string>
+    <string name="eleccion">Eleccion</string>
+    <string name="reiniciar_puntuaciones">Reiniciar puntuaciones</string>
+    <string name="maquina">Máquina</string>
+    <string name="jugador">Jugador</string>
+    <string name="puntuacion">Puntuacion</string>
+    <string name="imagen_versus">imagen versus</string>
+    <string name="piedra_papel_tijeras_lagarto_spock">Piedra papel tijeras lagarto Spock</string>
+</resources>
