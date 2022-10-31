@@ -14,50 +14,49 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/imgBtnRock"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
+                android:layout_marginStart="56dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/rock"
                 android:scaleType="fitCenter"
-                android:src="@drawable/rock" />
+                android:src="@drawable/rock"
+                app:layout_constraintBottom_toTopOf="@+id/imgBtnScissors"
+                app:layout_constraintEnd_toStartOf="@+id/imgBtnSpock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9" />
 
             <ImageButton
                 android:id="@+id/imgBtnPaper"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
+                android:layout_marginEnd="56dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/paper"
                 android:scaleType="fitCenter"
-                android:src="@drawable/paper" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+                android:src="@drawable/paper"
+                app:layout_constraintBottom_toTopOf="@+id/imgBtnLizard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgBtnSpock"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9" />
 
             <ImageButton
                 android:id="@+id/imgBtnSpock"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
+                android:layout_marginBottom="52dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
@@ -66,43 +65,45 @@
                 android:src="@drawable/spock"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/imgBtnScissors"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
+                android:layout_marginStart="56dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/scissors"
                 android:scaleType="fitCenter"
-                android:src="@drawable/scissors" />
+                android:src="@drawable/scissors"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgBtnSpock"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1" />
 
             <ImageButton
                 android:id="@+id/imgBtnLizard"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
+                android:layout_marginEnd="56dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/lizard"
                 android:scaleType="fitCenter"
                 android:src="@drawable/lizard"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgBtnSpock"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
     </LinearLayout>
 
     <ImageView

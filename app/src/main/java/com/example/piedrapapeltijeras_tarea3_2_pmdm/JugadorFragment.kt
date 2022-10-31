@@ -42,6 +42,7 @@ class JugadorFragment : Fragment() {
         btnLizard = root?.findViewById(R.id.imgBtnLizard)
         btnSpock = root?.findViewById(R.id.imgBtnSpock)
 
+        //Pasa un número entre el 1 y el 5 según el botón pulsado a MainActivity
         btnScissors?.setOnClickListener { listener?.onClickFragmentButton(1) }
         btnRock?.setOnClickListener { listener?.onClickFragmentButton(2) }
         btnPaper?.setOnClickListener { listener?.onClickFragmentButton(3) }

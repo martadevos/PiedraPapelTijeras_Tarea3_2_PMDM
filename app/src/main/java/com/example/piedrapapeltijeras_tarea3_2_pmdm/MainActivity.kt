@@ -1,16 +1,17 @@
 package com.example.piedrapapeltijeras_tarea3_2_pmdm
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentActionsListener {
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
     private var cadenaGanador: String? = null
     private var puntuacionJugador: Int = 0
     private var puntuacionMaquina: Int = 0
+    private var fragmentoMaquina: FragmentContainerView? = null
 
     private var imgJugador: ImageView? = null
     private var botonesEleccion: LinearLayout? = null
@@ -43,10 +45,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
         btnReiniciarPuntuacion = findViewById(R.id.btnReiniciarPuntuacion)
         txtPuntuacionJugador = findViewById(R.id.txtPuntucacionJugador)
         txtPuntuacionMaquina = findViewById(R.id.txtPuntuacioMaquina)
+        fragmentoMaquina = findViewById(R.id.mostrarFragmentoMaquina)
 
         btnReiniciarPuntuacion?.setOnClickListener(this)
     }
 
+    /**
+     * Al pulsar el boton btnReiniciarPuntuacion, pone las variables de puntuacion y los correspondientes textos a 0
+     * @param p0 vista correspondiente al botón pulsado
+     */
     override fun onClick(p0: View?) {
         //Al hacer click en el botón de reiniciar puntuación, pone las puntuaciones de jugador y máquina a 0
         if (p0?.id == btnReiniciarPuntuacion?.id) {
@@ -57,6 +64,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
         }
     }
 
+    /**
+     * Llama al métdo eleccionJugador y utiliza un handler para llamar a los siguientes métodos tras x segundos:
+     * eleccionMaquina tras 2 segundos
+     * mostrarGanador tras 4 segundos
+     * preguntarSiSeguir tras 6 segundos
+     * @param id entero correspondiente al botón pulsado
+     */
     override fun onClickFragmentButton(id: Int) {
         eleccionJugador(id)
         val handler = Handler(Looper.myLooper()!!)
@@ -66,9 +80,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
         handler.postDelayed({ mostrarGanador() }, 4 * 1000)
         //Muestra una alerta para preguntar si desea seguir jugando tras 2 segundos
         handler.postDelayed({ preguntarSiSeguir() }, 6 * 1000)
-
     }
 
+    /**
+     * Asigna la image view imgViewEleccionJugador a la variable imgJugador,
+     * asigna el linear layout botonesEleccion a la variable botonesEleccion,
+     * asigna a la variable resultadoJugador el id pasado por parámetro,
+     * asigna la imagen correspondiente a resultadoJugador a imgJugador con un array de enteros y
+     * pone visibilidad de botonesEleccion a gone y imgJugador a visible
+     * @param id entero correspondiente al botón pulsado
+     */
     private fun eleccionJugador(id: Int) {
         imgJugador = findViewById(R.id.imgViewEleccionJugador)
         botonesEleccion = findViewById(R.id.botonesEleccion)
@@ -81,6 +102,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
         imgJugador?.visibility = View.VISIBLE
     }
 
+    /**
+     * Asigna la image view imgViewEleccionMaquina a la variable imgMaquina,
+     * asigna un resultado con un random entre 1 y 5 a la variable resultadoMaquina
+     * y asigna la imagen correspondiente a resultadoMaquina a imgMaquina con un array de enteros
+     */
     private fun eleccionMaquina() {
         imgMaquina = findViewById(R.id.imgViewEleccionMaquina)
         //asigna a la eleccion de la máquina un número entre 1 y 5 incluidos ambos
@@ -90,22 +116,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
         imgMaquina?.setImageResource(arrayImagenes[resultadoMaquina!! - 1])
     }
 
+    /**
+     * Llama al método seleccionarGanador, muestra un dialogo con el resultado de la ronda
+     * y actualiza las puntuaciones; al pulsar el botón ok cierra la alerta
+     */
     private fun mostrarGanador() {
         seleccionarGanador()
         AlertDialog.Builder(this)
             .setTitle("Resultado:")
             .setMessage(cadenaGanador)
-            .setPositiveButton("Ok") { _, _ ->
-                Log.d("Dialog", "---------------- Ok ----------------")
-            }
+            .setPositiveButton("Ok", null)
             .create()
             .show()
         txtPuntuacionJugador?.text = puntuacionJugador.toString()
         txtPuntuacionMaquina?.text = puntuacionMaquina.toString()
     }
 
+    /**
+     * Rellena la acadena que se mostrará en el dialogo de ganador dependiendo de la elección del
+     * jugador y la máquina a traves de un when
+     */
     private fun seleccionarGanador() {
-
         if (resultadoJugador == resultadoMaquina) cadenaGanador = "Empate :/"
         else when (resultadoJugador) {
             1 -> {
@@ -157,6 +188,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
         }
     }
 
+    /**
+     * Muestra un dialogo que pregunta si desea continuar, si se pulsa el botón sí,
+     * pone visibles los botones de elección del jugador, visbilidad gone de la imagen
+     * de la eleccion del jugador y pone el interrogante en la imagen de elección de la máquina;
+     * si se pulsa no, cierra la aplicación
+     */
     private fun preguntarSiSeguir() {
         AlertDialog.Builder(this)
             .setTitle("Seguir")
@@ -168,7 +205,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnFragmentAction
                 botonesEleccion?.visibility = View.VISIBLE
                 imgMaquina?.setImageResource(R.drawable.question_mark)
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton("No") { _, _ ->
+                Log.d("Dialog", "---------------- No ----------------")
+                finish()
+            }
             .create()
             .show()
     }
